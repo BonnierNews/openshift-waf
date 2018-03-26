@@ -1,0 +1,9 @@
+[submodule "src/ModSecurity"]
+	path = src/ModSecurity
+	url = https://github.com/SpiderLabs/ModSecurity.git
+[submodule "src/mod_defender"]
+	path = src/mod_defender
+	url = https://github.com/VultureProject/mod_defender.git
+[submodule "docker-nikto2"]
+	path = docker-nikto2
+	url = https://github.com/pemcconnell/docker-nikto2.git
