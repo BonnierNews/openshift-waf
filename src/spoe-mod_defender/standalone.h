@@ -23,6 +23,7 @@
 
 #include <apr_pools.h>
 #include <apr_hooks.h>
+#include <ap_mpm.h>
 
 #define INSERT_BEFORE(f, before_this) ((before_this) == NULL                \
                            || (before_this)->frec->ftype > (f)->frec->ftype \

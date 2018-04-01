@@ -240,7 +240,6 @@ static void defender_post_config()
 static const char *defender_set_logger(const char *file)
 {
 	char *logname;
-
 	logger = defender_logger;
 
 	if (file == NULL)
@@ -254,8 +253,10 @@ static const char *defender_set_logger(const char *file)
 		return apr_pstrcat(defender_pool, "Cannot open log file, ",
 		                   logname, NULL);
 	}
+
 	server->error_fname = logname;
 
+	LOG(&null_worker, "%s", "Logging setup");
 	return NULL;
 }
 
@@ -604,7 +605,6 @@ misc:
 
 	/* process */
 	status = defender_process_headers(r);
-
 	if (status == DECLINED)
 		status = defender_process_body(r);
 
@@ -613,7 +613,6 @@ misc:
 	/* success */
 	if (status == DECLINED)
 		status = OK;
-
 out:
 
 	if (r && r->pool) {
@@ -629,6 +628,5 @@ out:
 		apr_bucket_alloc_destroy(c->bucket_alloc);
 		apr_pool_destroy(c->pool);
 	}
-
 	return status;
 }
