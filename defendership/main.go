@@ -192,7 +192,7 @@ func redisStatsPrinter() {
 	conn := Pool.Get()
 	defer conn.Close()
 	for {
-		time.Sleep(5 * time.Second)
+		time.Sleep(30 * time.Second)
 		// Number of IP's stored
 		ips, _ := redis.Int(conn.Do("ZCARD", "defender:clientstimeline"))
 		recentIps, _ := redis.Strings(conn.Do("ZREVRANGE", "defender:clientstimeline", 0, 10))

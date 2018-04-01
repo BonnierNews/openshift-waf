@@ -52,7 +52,6 @@ DECLARE_HOOK(int,header_parser,(request_rec *r))
 char *defender_name = DEFENDER_NAME;
 const char *defender_argv[] = { DEFENDER_NAME, NULL };
 const char *defender_unknown_hostname = "";
-
 void *defender_module_config = NULL;
 static server_rec *server = NULL;
 apr_pool_t *defender_pool = NULL;
@@ -578,6 +577,11 @@ misc:
 	if (!r->hostname)
 		r->hostname = defender_unknown_hostname;
 	r->parsed_uri.hostname = (char *)r->hostname;
+
+	/* set useragent_ip to True-Client-IP if it exists */
+	r->useragent_ip = apr_table_get(r->headers_in, "True-Client-IP");
+	if (!r->useragent_ip)
+		r->useragent_ip = defender_addr2str(r->pool, &request->clientip);
 
 	r->content_type = apr_table_get(r->headers_in, "Content-Type");
 	r->content_encoding = apr_table_get(r->headers_in, "Content-Encoding");
